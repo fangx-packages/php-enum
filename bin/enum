@@ -1,0 +1,55 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+exit('coming soon!' . PHP_EOL);
+
+// 没有指定 key 的时候作为默认的 key
+$index = 0;
+
+$options = [
+    'enum::',
+    'path::',
+];
+
+$input = getopt('', $options);
+
+$constants = [];
+
+parse($constants, (array)$input['enum']);
+
+function parse(&$constants, $enums)
+{
+    global $index;
+    foreach ((array)$enums as $enum) {
+        if (strpos($enum, '|') === false) {
+            if (strpos($enum, '|') === false) {
+                array_push($constants, [$index, $enum]);
+            } else {
+                array_push($constants, explode('=', $enum));
+            }
+        } else {
+            parse($constants, explode('|', $enum));
+        }
+        $index++;
+    }
+}
+
+function render()
+{
+    $template = <<<ENUM
+<?php
+declare(strict_types=1);
+
+namespace DummyNamespace;
+
+use App\Enums\Enum;
+
+class DummyClass
+{
+    use Enum;
+    DummyConstants
+}
+ENUM;
+
+}

@@ -1,0 +1,32 @@
+{
+  "name": "fangx/php-enum",
+  "description": "php enum generator",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "nfangxu",
+      "email": "nfangxu@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.2.0",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Fangx\\Enum\\": "src/"
+    },
+    "files": [
+    ]
+  },
+  "bin": [
+    "bin/enum"
+  ],
+  "scripts": {
+    "test": "./vendor/phpunit/phpunit/phpunit --configuration phpunit.xml"
+  }
+}
