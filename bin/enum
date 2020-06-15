@@ -1,55 +1,45 @@
 #!/usr/bin/env php
 <?php
-declare(strict_types=1);
+$dir = __DIR__ . '/..';
 
-exit('coming soon!' . PHP_EOL);
+if (!file_exists($dir . '/autoload.php')) {
+    $dir = __DIR__ . '/../vendor';
+}
 
-// 没有指定 key 的时候作为默认的 key
-$index = 0;
+if (!file_exists($dir . '/autoload.php')) {
+    $dir = __DIR__ . '/../../..';
+}
 
-$options = [
-    'enum::',
-    'path::',
-];
+if (!file_exists($dir . '/autoload.php')) {
+    echo 'Autoload not found.';
+    exit(1);
+}
 
-$input = getopt('', $options);
+require $dir . '/autoload.php';
 
-$constants = [];
+$name = $argv[1];
 
-parse($constants, (array)$input['enum']);
+requireIsValidName($name);
 
-function parse(&$constants, $enums)
-{
-    global $index;
-    foreach ((array)$enums as $enum) {
-        if (strpos($enum, '|') === false) {
-            if (strpos($enum, '|') === false) {
-                array_push($constants, [$index, $enum]);
-            } else {
-                array_push($constants, explode('=', $enum));
-            }
-        } else {
-            parse($constants, explode('|', $enum));
-        }
-        $index++;
+$enums = [];
+$path = '';
+
+foreach ($argv as $item) {
+    if (substr($item, 0, 7) === '--enum=') {
+        array_push($enums, substr_replace($item, '', 0, 7));
+    }
+
+    if (substr($item, 0, 7) === '--path=') {
+        $path = substr_replace($item, '', 0, 7);
     }
 }
 
-function render()
+echo (new \Fangx\Enum\Commands\EnumGenerator($dir . '/..'))->run($name, ['enum' => $enums, 'path' => $path]);
+exit(0);
+
+function requireIsValidName($name)
 {
-    $template = <<<ENUM
-<?php
-declare(strict_types=1);
-
-namespace DummyNamespace;
-
-use App\Enums\Enum;
-
-class DummyClass
-{
-    use Enum;
-    DummyConstants
-}
-ENUM;
-
+    if (!preg_match('/^\w+$/', $name)) {
+        trigger_error('the name is valid!');
+    }
 }

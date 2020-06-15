@@ -10,7 +10,28 @@ composer require fangx/php-enum
 
 ## Usage
 
-创建一个类, 继承 `\Fangx\Enum\AbstractEnum`. 可以静态调用以下方法: 
+使用 `./vendor/bin/enum` 命令创建一个枚举类. 
+
+```bash
+./vendor/bin/enum FooEnum --enum="1=foo" --enum="b=bar" --path=Enums
+```
+
+该命令默认在 当前目录的 Enums 目录下创建一个 FooEnum.php 文件. 文件内容如下:
+
+```php
+<?php
+namespace Enums;
+
+use Fangx\Enum\AbstractEnum;
+
+class FooEnum extends AbstractEnum
+{
+    const FOO = "f", __FOO = "foo";
+    const BAR = "b", __BAR = "bar";
+}
+```
+
+枚举类默认继承 `\Fangx\Enum\AbstractEnum`. 可以静态调用以下方法: 
 
 - `toArray(Format $format = null, Filter $filter = null)`
 - `toJson(Format $format = null, Filter $filter = null)`
