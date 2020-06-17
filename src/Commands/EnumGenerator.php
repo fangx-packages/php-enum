@@ -1,5 +1,15 @@
 <?php
+
 declare(strict_types=1);
+
+/**
+ * Fangx's Packages
+ *
+ * @link     https://github.com/fangx-packages/hyperf-resource
+ * @document https://github.com/fangx-packages/hyperf-resource/blob/master/README.md
+ * @contact  nfangxu@gmail.com
+ * @author   nfangxu
+ */
 
 namespace Fangx\Enum\Commands;
 
@@ -43,7 +53,7 @@ class EnumGenerator
 
     protected function stub()
     {
-        return <<<STUB
+        return <<<'STUB'
 <?php
 namespace DummyNamespace;
 
@@ -90,7 +100,7 @@ STUB;
 
         $enums = (array)($options['enum'] ?? []);
 
-        if (!$path || !$enums) {
+        if (! $path || ! $enums) {
             trigger_error('params [path|enum] is valid! ', E_USER_ERROR);
         }
 
@@ -99,7 +109,7 @@ STUB;
 
     private function makeDirectory($directory)
     {
-        if (!is_dir($directory)) {
+        if (! is_dir($directory)) {
             @mkdir($directory, 0777, true);
         }
     }

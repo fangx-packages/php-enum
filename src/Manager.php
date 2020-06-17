@@ -1,9 +1,18 @@
 <?php
+
 declare(strict_types=1);
+
+/**
+ * Fangx's Packages
+ *
+ * @link     https://github.com/fangx-packages/hyperf-resource
+ * @document https://github.com/fangx-packages/hyperf-resource/blob/master/README.md
+ * @contact  nfangxu@gmail.com
+ * @author   nfangxu
+ */
 
 namespace Fangx\Enum;
 
-use Fangx\Enum\Contracts\Definition;
 use Fangx\Enum\Contracts\Filter;
 use Fangx\Enum\Contracts\Format;
 
@@ -18,7 +27,7 @@ class Manager
 
     public function get(?Format $format = null, ?Filter $filter = null): Enum
     {
-        $enums = (new $this->class)->all() ?: Parse::enum($this->class);
+        $enums = (new $this->class())->all() ?: Parse::enum($this->class);
         $format = $format ?: new UnFormat();
 
         $return = new Enum();

@@ -1,5 +1,15 @@
 <?php
+
 declare(strict_types=1);
+
+/**
+ * Fangx's Packages
+ *
+ * @link     https://github.com/fangx-packages/hyperf-resource
+ * @document https://github.com/fangx-packages/hyperf-resource/blob/master/README.md
+ * @contact  nfangxu@gmail.com
+ * @author   nfangxu
+ */
 
 namespace Fangx\Enum;
 
@@ -14,12 +24,17 @@ use JsonSerializable;
 
 class Enum implements ArrayAccess, Countable, IteratorAggregate, JsonSerializable
 {
-    use SupportArrayAccess
-        , SupportCountable
-        , SupportIteratorAggregate
-        , SupportJsonSerializable;
+    use SupportArrayAccess;
+    use SupportCountable;
+    use SupportIteratorAggregate;
+    use SupportJsonSerializable;
 
     public $items = [];
+
+    public function __toString()
+    {
+        return $this->toJson(JSON_UNESCAPED_UNICODE);
+    }
 
     public static function make($items)
     {
@@ -42,10 +57,5 @@ class Enum implements ArrayAccess, Countable, IteratorAggregate, JsonSerializabl
     public function toJson($options = 0)
     {
         return json_encode($this->toArray(), $options);
-    }
-
-    public function __toString()
-    {
-        return $this->toJson(JSON_UNESCAPED_UNICODE);
     }
 }

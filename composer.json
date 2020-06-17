@@ -14,7 +14,8 @@
     "ext-json": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "*"
+    "phpunit/phpunit": "*",
+    "friendsofphp/php-cs-fixer": "^2.16"
   },
   "autoload": {
     "psr-4": {
@@ -27,6 +28,7 @@
     "bin/enum"
   ],
   "scripts": {
+    "cs-fix": "php-cs-fixer fix $1",
     "test": "./vendor/phpunit/phpunit/phpunit --configuration phpunit.xml"
   }
 }
