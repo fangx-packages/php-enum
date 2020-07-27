@@ -5,8 +5,8 @@ declare(strict_types=1);
 /**
  * Fangx's Packages
  *
- * @link     https://github.com/fangx-packages/hyperf-resource
- * @document https://github.com/fangx-packages/hyperf-resource/blob/master/README.md
+ * @link     https://github.com/fangx-packages/php-enum
+ * @document https://github.com/fangx-packages/php-enum/blob/master/README.md
  * @contact  nfangxu@gmail.com
  * @author   nfangxu
  */
@@ -33,7 +33,7 @@ class Enum implements ArrayAccess, Countable, IteratorAggregate, JsonSerializabl
 
     public function __toString()
     {
-        return $this->toJson(JSON_UNESCAPED_UNICODE);
+        return $this->toJson();
     }
 
     public static function make($items)
@@ -54,7 +54,7 @@ class Enum implements ArrayAccess, Countable, IteratorAggregate, JsonSerializabl
         return $enum;
     }
 
-    public function toJson($options = 0)
+    public function toJson($options = JSON_UNESCAPED_UNICODE)
     {
         return json_encode($this->toArray(), $options);
     }

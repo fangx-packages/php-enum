@@ -100,14 +100,16 @@ $format = new FooFormat();
 FooEnum::toArray($format);
 ```
 
-### 通过规则来过来过滤枚举值.
+### 通过规则来过来过滤枚举值. 当 `__invoke` 返回 `true` 时, 该值将会在结果中被剔除
+
+> 支持设置多个过滤规则, FooEnum::toArray(null, $filter1, $filter2, $filter3);
 
 ```php
 class FooFilter implements \Fangx\Enum\Contracts\Filter
 {
     public function __invoke(\Fangx\Enum\Contracts\Definition $definition)
     {
-        return $definition->getKey() === 'f';
+        return $definition->getKey() !== 'f';
     }
 }
 

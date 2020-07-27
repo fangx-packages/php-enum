@@ -5,8 +5,8 @@ declare(strict_types=1);
 /**
  * Fangx's Packages
  *
- * @link     https://github.com/fangx-packages/hyperf-resource
- * @document https://github.com/fangx-packages/hyperf-resource/blob/master/README.md
+ * @link     https://github.com/fangx-packages/php-enum
+ * @document https://github.com/fangx-packages/php-enum/blob/master/README.md
  * @contact  nfangxu@gmail.com
  * @author   nfangxu
  */
@@ -25,7 +25,12 @@ class Manager
         $this->class = $class;
     }
 
-    public function get(?Format $format = null, ?Filter $filter = null): Enum
+    /**
+     * Get all.
+     *
+     * @param Filter[] $filters
+     */
+    public function get(?Format $format = null, ...$filters): Enum
     {
         $enums = (new $this->class())->all() ?: Parse::enum($this->class);
         $format = $format ?: new UnFormat();
@@ -33,11 +38,18 @@ class Manager
         $return = new Enum();
 
         foreach ($enums as $enum) {
-            if ($filter) {
-                if (call_user_func($filter, $enum)) {
-                    $return->offsetSet(null, $format->parse($enum));
+            $filteredOut = false;
+
+            if ($filters) {
+                foreach ($filters as $filter) {
+                    if (call_user_func($filter, $enum)) {
+                        $filteredOut = true;
+                        break;
+                    }
                 }
-            } else {
+            }
+
+            if (! $filteredOut) {
                 $return->offsetSet(null, $format->parse($enum));
             }
         }
@@ -45,21 +57,46 @@ class Manager
         return $return;
     }
 
-    public function toArray(?Format $format = null, ?Filter $filter = null)
+    /**
+     * Get all as array.
+     *
+     * @param Filter[] $filters
+     * @return array
+     */
+    public function toArray(?Format $format = null, ...$filters)
     {
-        return $this->get($format, $filter)->toArray();
+        return $this->get($format, ...$filters)->toArray();
     }
 
-    public function toJson(?Format $format = null, ?Filter $filter = null)
+    /**
+     * Get all as json.
+     *
+     * @param Filter[] $filters
+     * @return false|string
+     */
+    public function toJson(?Format $format = null, ...$filters)
     {
-        return $this->get($format, $filter)->toJson();
+        return $this->get($format, ...$filters)->toJson();
     }
 
+    /**
+     * Get description for enum.
+     *
+     * @param int|string $key
+     * @param mixed $default
+     * @return mixed|string
+     */
     public function desc($key, $default = 'Undefined')
     {
         return $this->isValidKey($key) ? $this->toArray()[$key] : $default;
     }
 
+    /**
+     * The enum key is valid.
+     *
+     * @param int|string $key
+     * @return bool
+     */
     public function isValidKey($key)
     {
         return array_key_exists($key, $this->toArray());

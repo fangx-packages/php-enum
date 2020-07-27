@@ -11,11 +11,17 @@ declare(strict_types=1);
  * @author   nfangxu
  */
 
-namespace Fangx\Enum\Contracts;
+namespace Fangx\Tests\Stubs;
 
-interface Definition
+use Fangx\Enum\AbstractEnum;
+
+class FooEnum extends AbstractEnum
 {
-    public function getKey();
+    const FOO = 'f';
 
-    public function getValue();
+    const __FOO = 'foo';
+
+    const BAR = 'b';
+
+    const __BAR = 'bar';
 }

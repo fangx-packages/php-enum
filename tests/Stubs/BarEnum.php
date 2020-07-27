@@ -11,12 +11,18 @@ declare(strict_types=1);
  * @author   nfangxu
  */
 
-namespace Fangx\Enum\Concerns;
+namespace Fangx\Tests\Stubs;
 
-trait SupportJsonSerializable
+use Fangx\Enum\AbstractEnum;
+use Fangx\Enum\Definition;
+
+class BarEnum extends AbstractEnum
 {
-    public function jsonSerialize()
+    public function all()
     {
-        return $this->items;
+        return [
+            new Definition('f', 'foo'),
+            new Definition('b', 'bar'),
+        ];
     }
 }

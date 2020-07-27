@@ -5,6 +5,17 @@ declare(strict_types=1);
 /**
  * Fangx's Packages
  *
+ * @link     https://github.com/fangx-packages/php-enum
+ * @document https://github.com/fangx-packages/php-enum/blob/master/README.md
+ * @contact  nfangxu@gmail.com
+ * @author   nfangxu
+ */
+
+namespace Fangx\Tests;
+
+/*
+ * Fangx's Packages
+ *
  * @link     https://github.com/fangx-packages/hyperf-resource
  * @document https://github.com/fangx-packages/hyperf-resource/blob/master/README.md
  * @contact  nfangxu@gmail.com
@@ -12,8 +23,13 @@ declare(strict_types=1);
  */
 
 use Fangx\Enum\Contracts\Definition;
+use Fangx\Enum\Contracts\Filter;
 use Fangx\Enum\Contracts\Format;
 use Fangx\Enum\UnFormat;
+use Fangx\Enum\WithoutDefault;
+use Fangx\Tests\Stubs\BarEnum;
+use Fangx\Tests\Stubs\ExampleEnum;
+use Fangx\Tests\Stubs\FooEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -33,10 +49,10 @@ class EnumTest extends TestCase
             }
         };
 
-        $filter = new class() implements \Fangx\Enum\Contracts\Filter {
+        $filter = new class() implements Filter {
             public function __invoke(Definition $definition)
             {
-                return $definition->getKey() === 'f';
+                return $definition->getKey() !== 'f';
             }
         };
 
@@ -53,26 +69,11 @@ class EnumTest extends TestCase
         $this->assertSame(['f' => 'foo'], FooEnum::toArray(null, $filter));
         $this->assertSame(['f' => 'foo'], BarEnum::toArray(null, $filter));
     }
-}
 
-class FooEnum extends \Fangx\Enum\AbstractEnum
-{
-    const FOO = 'f';
-
-    const __FOO = 'foo';
-
-    const BAR = 'b';
-
-    const __BAR = 'bar';
-}
-
-class BarEnum extends \Fangx\Enum\AbstractEnum
-{
-    public function all()
+    public function testFilter()
     {
-        return [
-            new \Fangx\Enum\Definition('f', 'foo'),
-            new \Fangx\Enum\Definition('b', 'bar'),
-        ];
+        $this->assertSame(['f' => 'Foo', 'b' => 'Bar', 0 => 'default', 'unknown' => 'unknown'], ExampleEnum::toArray());
+        $this->assertSame(['f' => 'Foo', 'b' => 'Bar', 'unknown' => 'unknown'], ExampleEnum::toArray(null, new WithoutDefault()));
+        $this->assertSame(['f' => 'Foo', 'b' => 'Bar'], ExampleEnum::toArray(null, new WithoutDefault(), new WithoutDefault('unknown')));
     }
 }

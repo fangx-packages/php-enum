@@ -3,8 +3,8 @@
 $header = <<<'EOF'
 Fangx's Packages
 
-@link     https://github.com/fangx-packages/hyperf-resource
-@document https://github.com/fangx-packages/hyperf-resource/blob/master/README.md
+@link     https://github.com/fangx-packages/php-enum
+@document https://github.com/fangx-packages/php-enum/blob/master/README.md
 @contact  nfangxu@gmail.com
 @author   nfangxu
 EOF;

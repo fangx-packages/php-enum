@@ -24,6 +24,11 @@
     "files": [
     ]
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Fangx\\Tests\\": "tests/"
+    }
+  },
   "bin": [
     "bin/enum"
   ],
