@@ -3,6 +3,10 @@
   "description": "php enum generator",
   "type": "library",
   "license": "MIT",
+  "keywords": [
+    "php",
+    "enum"
+  ],
   "authors": [
     {
       "name": "nfangxu",
