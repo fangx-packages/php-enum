@@ -40,6 +40,6 @@ exit(0);
 function requireIsValidName($name)
 {
     if (!preg_match('/^\w+$/', $name)) {
-        trigger_error('the name is valid!');
+        trigger_error('the name is invalid!');
     }
 }
