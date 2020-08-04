@@ -43,4 +43,24 @@ abstract class AbstractEnum
     {
         return new Manager(static::class);
     }
+
+    /**
+     * The filters if not $filters
+     *
+     * @return array
+     */
+    public function filters()
+    {
+        return [];
+    }
+
+    /**
+     * The format if not $format
+     *
+     * @return Format|null
+     */
+    public function format(): ?Format
+    {
+        return null;
+    }
 }

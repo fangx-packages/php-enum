@@ -30,6 +30,8 @@ use Fangx\Enum\WithoutDefault;
 use Fangx\Tests\Stubs\BarEnum;
 use Fangx\Tests\Stubs\ExampleEnum;
 use Fangx\Tests\Stubs\FooEnum;
+use Fangx\Tests\Stubs\HasDefaultFiltersEnum;
+use Fangx\Tests\Stubs\HasDefaultFormatEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -75,5 +77,20 @@ class EnumTest extends TestCase
         $this->assertSame(['f' => 'Foo', 'b' => 'Bar', 0 => 'default', 'unknown' => 'unknown'], ExampleEnum::toArray());
         $this->assertSame(['f' => 'Foo', 'b' => 'Bar', 'unknown' => 'unknown'], ExampleEnum::toArray(null, new WithoutDefault()));
         $this->assertSame(['f' => 'Foo', 'b' => 'Bar'], ExampleEnum::toArray(null, new WithoutDefault(), new WithoutDefault('unknown')));
+    }
+
+    public function testHasDefaultFilters()
+    {
+        $this->assertSame(['f' => 'Foo', 'b' => 'Bar'], HasDefaultFiltersEnum::toArray());
+    }
+
+    public function testHasDefaultFormat()
+    {
+        $this->assertSame([
+            ['name' => 'Foo', 'value' => 'f'],
+            ['name' => 'Bar', 'value' => 'b'],
+            ['name' => 'default', 'value' => 0],
+            ['name' => 'unknown', 'value' => 'unknown'],
+        ], HasDefaultFormatEnum::toArray());
     }
 }

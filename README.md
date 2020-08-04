@@ -136,6 +136,51 @@ class BarEnum extends \Fangx\Enum\AbstractEnum
 }
 ```
 
+### 从 `v1.2` 起, 支持设置默认的 `filters` 和 `format`
+
+> 设置默认的过滤器
+
+```php
+<?php
+declare(strict_types=1);
+
+namespace Fangx\Tests\Stubs;
+
+use Fangx\Enum\WithoutDefault;
+
+class HasDefaultFiltersEnum extends ExampleEnum
+{
+    public function filters()
+    {
+        return [
+            new WithoutDefault(),
+            new WithoutDefault('unknown'),
+        ];
+    }
+}
+
+```
+
+> 设置默认的格式
+
+```php
+<?php
+declare(strict_types=1);
+
+namespace Fangx\Tests\Stubs;
+
+use Fangx\Enum\Contracts\Format;
+
+class HasDefaultFormatEnum extends ExampleEnum
+{
+    public function format(): ?Format
+    {
+        return new CustomFormat();
+    }
+}
+
+```
+
 ## Test
 
 ```bash

@@ -32,8 +32,14 @@ class Manager
      */
     public function get(?Format $format = null, ...$filters): Enum
     {
-        $enums = (new $this->class())->all() ?: Parse::enum($this->class);
-        $format = $format ?: new UnFormat();
+        /** @var AbstractEnum $class */
+        $class = (new $this->class());
+
+        $defaultFormat = $class->format() ?: new UnFormat();
+
+        $enums = $class->all() ?: Parse::enum($this->class);
+        $format = $format ?: $defaultFormat;
+        $filters = $filters ?: $class->filters();
 
         $return = new Enum();
 
