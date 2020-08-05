@@ -13,15 +13,19 @@ declare(strict_types=1);
 
 namespace Fangx\Tests\Stubs;
 
-use Fangx\Enum\WithoutDefault;
+use Fangx\Enum\AbstractEnum;
 
-class HasDefaultFiltersEnum extends ExampleEnum
+class NumberKeyEnum extends AbstractEnum
 {
-    public function filters()
-    {
-        return [
-            new WithoutDefault(),
-            new WithoutDefault('unknown'),
-        ];
-    }
+    const ZERO = 0;
+
+    const __ZERO = 'zero';
+
+    const ONE = 1;
+
+    const __ONE = 'one';
+
+    const TWO = 2;
+
+    const __TWO = 'two';
 }

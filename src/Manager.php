@@ -41,7 +41,7 @@ class Manager
         $format = $format ?: $defaultFormat;
         $filters = $filters ?: $class->filters();
 
-        $return = new Enum();
+        $return = new Enum(get_class($format) === UnFormat::class);
 
         foreach ($enums as $enum) {
             $filteredOut = false;

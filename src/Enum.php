@@ -31,6 +31,13 @@ class Enum implements ArrayAccess, Countable, IteratorAggregate, JsonSerializabl
 
     public $items = [];
 
+    private $keepKeys;
+
+    public function __construct($keepKeys = false)
+    {
+        $this->keepKeys = $keepKeys;
+    }
+
     public function __toString()
     {
         return $this->toJson();
@@ -48,7 +55,11 @@ class Enum implements ArrayAccess, Countable, IteratorAggregate, JsonSerializabl
         $enum = [];
 
         foreach ($this->items as $item) {
-            $enum = array_merge($enum, $item);
+            if ($this->keepKeys) {
+                $enum += $item;
+            } else {
+                $enum = array_merge($enum, $item);
+            }
         }
 
         return $enum;

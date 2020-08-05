@@ -39,13 +39,8 @@ abstract class AbstractEnum
         return null;
     }
 
-    private static function resolve(): Manager
-    {
-        return new Manager(static::class);
-    }
-
     /**
-     * The filters if not $filters
+     * The filters if not $filters.
      *
      * @return array
      */
@@ -55,12 +50,15 @@ abstract class AbstractEnum
     }
 
     /**
-     * The format if not $format
-     *
-     * @return Format|null
+     * The format if not $format.
      */
     public function format(): ?Format
     {
         return null;
+    }
+
+    private static function resolve(): Manager
+    {
+        return new Manager(static::class);
     }
 }

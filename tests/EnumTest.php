@@ -32,6 +32,7 @@ use Fangx\Tests\Stubs\ExampleEnum;
 use Fangx\Tests\Stubs\FooEnum;
 use Fangx\Tests\Stubs\HasDefaultFiltersEnum;
 use Fangx\Tests\Stubs\HasDefaultFormatEnum;
+use Fangx\Tests\Stubs\NumberKeyEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -92,5 +93,32 @@ class EnumTest extends TestCase
             ['name' => 'default', 'value' => 0],
             ['name' => 'unknown', 'value' => 'unknown'],
         ], HasDefaultFormatEnum::toArray());
+    }
+
+    public function testNumberKeyEnum()
+    {
+        $format = new class() implements Format {
+            public function parse(Definition $definition): array
+            {
+                return [['key' => $definition->getKey(), 'value' => $definition->getValue()]];
+            }
+        };
+
+        $this->assertSame([
+            0 => 'zero',
+            1 => 'one',
+            2 => 'two',
+        ], NumberKeyEnum::toArray());
+
+        $this->assertSame([
+            ['key' => 0, 'value' => 'zero'],
+            ['key' => 1, 'value' => 'one'],
+            ['key' => 2, 'value' => 'two'],
+        ], NumberKeyEnum::toArray($format));
+
+        $this->assertSame([
+            1 => 'one',
+            2 => 'two',
+        ], NumberKeyEnum::toArray(null, new WithoutDefault()));
     }
 }
