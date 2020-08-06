@@ -13,15 +13,6 @@ declare(strict_types=1);
 
 namespace Fangx\Tests;
 
-/*
- * Fangx's Packages
- *
- * @link     https://github.com/fangx-packages/hyperf-resource
- * @document https://github.com/fangx-packages/hyperf-resource/blob/master/README.md
- * @contact  nfangxu@gmail.com
- * @author   nfangxu
- */
-
 use Fangx\Enum\Contracts\Definition;
 use Fangx\Enum\Contracts\Filter;
 use Fangx\Enum\Contracts\Format;
