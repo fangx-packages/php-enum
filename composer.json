@@ -38,6 +38,6 @@
   ],
   "scripts": {
     "cs-fix": "php-cs-fixer fix $1",
-    "test": "./vendor/phpunit/phpunit/phpunit --configuration phpunit.xml"
+    "test": "./vendor/phpunit/phpunit/phpunit --configuration phpunit.xml --color=always"
   }
 }
