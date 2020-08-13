@@ -28,7 +28,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @coversNothing
  */
 class EnumTest extends TestCase
 {
@@ -54,6 +53,7 @@ class EnumTest extends TestCase
         $this->assertSame(['f' => 'foo', 'b' => 'bar'], BarEnum::toArray());
         $this->assertSame('{"f":"foo","b":"bar"}', FooEnum::toJson());
         $this->assertSame('{"f":"foo","b":"bar"}', BarEnum::toJson());
+        $this->assertSame('{"f":"foo","b":"bar"}', (string)BarEnum::get());
         $this->assertSame(['f' => 'foo', 'b' => 'bar'], FooEnum::toArray($unFormat));
         $this->assertSame(['f' => 'foo', 'b' => 'bar'], BarEnum::toArray($unFormat));
         $this->assertSame('foo', FooEnum::desc(FooEnum::FOO));

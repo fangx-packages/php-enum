@@ -38,6 +38,7 @@
   ],
   "scripts": {
     "cs-fix": "php-cs-fixer fix $1",
-    "test": "./vendor/phpunit/phpunit/phpunit --configuration phpunit.xml --color=always"
+    "test": "./vendor/bin/phpunit -c phpunit.xml --color=always --testdox",
+    "test-coverage": "php -d zend_extension=xdebug ./vendor/bin/phpunit -c phpunit.xml --color=always --testdox --coverage-html .codeCoverage"
   }
 }

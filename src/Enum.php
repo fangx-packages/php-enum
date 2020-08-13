@@ -43,9 +43,9 @@ class Enum implements ArrayAccess, Countable, IteratorAggregate, JsonSerializabl
         return $this->toJson();
     }
 
-    public static function make($items)
+    public static function make($keepKeys = false, $items = [])
     {
-        $enum = new static();
+        $enum = new static($keepKeys);
         $enum->items = $items;
         return $enum;
     }

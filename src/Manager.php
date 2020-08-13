@@ -77,7 +77,7 @@ class Manager
         $filters = $filters ?: $class->filters();
         $filters = array_merge($this->filters, $filters);
 
-        $return = new Enum(get_class($format) === UnFormat::class);
+        $return = Enum::make(get_class($format) === UnFormat::class);
 
         foreach ($enums as $enum) {
             $filteredOut = false;
