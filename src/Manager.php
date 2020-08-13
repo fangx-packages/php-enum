@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Fangx\Enum;
 
+use Closure;
 use Fangx\Enum\Contracts\Filter;
 use Fangx\Enum\Contracts\Format;
 
@@ -20,9 +21,43 @@ class Manager
 {
     protected $class;
 
+    /**
+     * @var array
+     */
+    protected $filters = [];
+
+    /**
+     * @var
+     */
+    protected $format;
+
     public function __construct(string $class)
     {
         $this->class = $class;
+        $this->format = new UnFormat();
+    }
+
+    /**
+     * Add filter.
+     *
+     * @param callable|Closure|Filter $filter
+     * @return $this
+     */
+    public function addFilter($filter)
+    {
+        $this->filters[] = $filter;
+        return $this;
+    }
+
+    /**
+     * Set Format.
+     *
+     * @return $this
+     */
+    public function setFormat(Format $format)
+    {
+        $this->format = $format;
+        return $this;
     }
 
     /**
@@ -35,11 +70,12 @@ class Manager
         /** @var AbstractEnum $class */
         $class = (new $this->class());
 
-        $defaultFormat = $class->format() ?: new UnFormat();
+        $defaultFormat = $class->format() ?: $this->format;
 
         $enums = $class->all() ?: Parse::enum($this->class);
         $format = $format ?: $defaultFormat;
         $filters = $filters ?: $class->filters();
+        $filters = array_merge($this->filters, $filters);
 
         $return = new Enum(get_class($format) === UnFormat::class);
 
@@ -48,7 +84,7 @@ class Manager
 
             if ($filters) {
                 foreach ($filters as $filter) {
-                    if (call_user_func($filter, $enum)) {
+                    if (is_callable($filter) && call_user_func($filter, $enum)) {
                         $filteredOut = true;
                         break;
                     }

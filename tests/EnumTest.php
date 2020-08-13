@@ -60,6 +60,8 @@ class EnumTest extends TestCase
         $this->assertSame('foo', BarEnum::desc('f'));
         $this->assertSame([['key' => 'f', 'value' => 'foo'], ['key' => 'b', 'value' => 'bar']], FooEnum::toArray($format));
         $this->assertSame([['key' => 'f', 'value' => 'foo'], ['key' => 'b', 'value' => 'bar']], BarEnum::toArray($format));
+        $this->assertSame([['key' => 'f', 'value' => 'foo'], ['key' => 'b', 'value' => 'bar']], FooEnum::setFormat($format)->toArray());
+        $this->assertSame([['key' => 'f', 'value' => 'foo'], ['key' => 'b', 'value' => 'bar']], BarEnum::setFormat($format)->toArray());
         $this->assertSame(['f' => 'foo'], FooEnum::toArray(null, $filter));
         $this->assertSame(['f' => 'foo'], BarEnum::toArray(null, $filter));
     }
@@ -68,7 +70,9 @@ class EnumTest extends TestCase
     {
         $this->assertSame(['f' => 'Foo', 'b' => 'Bar', 0 => 'default', 'unknown' => 'unknown'], ExampleEnum::toArray());
         $this->assertSame(['f' => 'Foo', 'b' => 'Bar', 'unknown' => 'unknown'], ExampleEnum::toArray(null, new WithoutDefault()));
+        $this->assertSame(['f' => 'Foo', 'b' => 'Bar', 'unknown' => 'unknown'], ExampleEnum::addFilter(new WithoutDefault())->toArray());
         $this->assertSame(['f' => 'Foo', 'b' => 'Bar'], ExampleEnum::toArray(null, new WithoutDefault(), new WithoutDefault('unknown')));
+        $this->assertSame(['f' => 'Foo', 'b' => 'Bar'], ExampleEnum::addFilter(new WithoutDefault())->addFilter(new WithoutDefault('unknown'))->toArray());
     }
 
     public function testHasDefaultFilters()

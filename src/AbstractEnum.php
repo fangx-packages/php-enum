@@ -20,9 +20,11 @@ use Fangx\Enum\Contracts\Format;
  * Class AbstractEnum.
  *
  * @method static Enum get(?Format $format = null, Filter ...$filters)
- * @method static toArray(?Format $format = null, Filter ...$filters)
- * @method static toJson(?Format $format = null, Filter ...$filters)
- * @method static desc($key, $default = 'Undefined')
+ * @method static Manager addFilter(\Closure|Filter $filter)
+ * @method static Manager setFormat(Format $format)
+ * @method static array toArray(?Format $format = null, Filter ...$filters)
+ * @method static string toJson(?Format $format = null, Filter ...$filters)
+ * @method static mixed desc($key, $default = 'Undefined')
  *
  * @see Manager
  * @see Enum
