@@ -28,6 +28,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ * @covers
  */
 class EnumTest extends TestCase
 {

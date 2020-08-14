@@ -116,8 +116,10 @@ class FooFilter implements \Fangx\Enum\Contracts\Filter
 /**
  * ['f' => 'foo']
  */
-$filter = new FooFilter();
-FooEnum::toArray(null, $filter);
+$fooFilter = new FooFilter();
+$barFilter = new BarFilter();
+FooEnum::toArray(null, $fooFilter, $barFilter);
+FooEnum::addFilter($fooFilter)->addFilter($barFilter)->toArray(); # ^1.3
 ```
 
 ### 使用自定义的集合来作为所有的枚举类型, 其他使用方法与 `FooEnum` 一致.
