@@ -61,6 +61,6 @@ abstract class AbstractEnum
 
     private static function resolve(): Manager
     {
-        return new Manager(static::class);
+        return new Manager(new static);
     }
 }

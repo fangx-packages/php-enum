@@ -31,7 +31,7 @@ class Manager
      */
     protected $format;
 
-    public function __construct(string $class)
+    public function __construct(object $class)
     {
         $this->class = $class;
         $this->format = new UnFormat();
@@ -68,11 +68,11 @@ class Manager
     public function get(?Format $format = null, ...$filters): Enum
     {
         /** @var AbstractEnum $class */
-        $class = (new $this->class());
+        $class = $this->class;
 
         $defaultFormat = $class->format() ?: $this->format;
 
-        $enums = $class->all() ?: Parse::enum($this->class);
+        $enums = $class->all() ?: Parse::enum(get_class($class));
         $format = $format ?: $defaultFormat;
         $filters = $filters ?: $class->filters();
         $filters = array_merge($this->filters, $filters);
