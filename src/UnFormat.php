@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace Fangx\Enum;
 
 use Fangx\Enum\Contracts\Definition;
-use Fangx\Enum\Contracts\Format;
+use Fangx\Enum\Contracts\KeepKeysFormat;
 
-class UnFormat implements Format
+class UnFormat implements KeepKeysFormat
 {
     public function parse(Definition $definition): array
     {

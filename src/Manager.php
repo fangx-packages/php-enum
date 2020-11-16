@@ -16,6 +16,7 @@ namespace Fangx\Enum;
 use Closure;
 use Fangx\Enum\Contracts\Filter;
 use Fangx\Enum\Contracts\Format;
+use Fangx\Enum\Contracts\KeepKeysFormat;
 
 class Manager
 {
@@ -77,7 +78,7 @@ class Manager
         $filters = $filters ?: $class->filters();
         $filters = array_merge($this->filters, $filters);
 
-        $return = Enum::make(get_class($format) === UnFormat::class);
+        $return = Enum::make($format instanceof KeepKeysFormat);
 
         foreach ($enums as $enum) {
             $filteredOut = false;
